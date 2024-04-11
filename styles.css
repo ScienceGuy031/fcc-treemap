@@ -1,0 +1,11 @@
+#tooltip {
+    background-color: #333;
+    padding: .3rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.county:hover {
+    stroke: #000;
+    stroke-width: 1;
+}
