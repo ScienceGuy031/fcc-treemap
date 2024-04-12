@@ -77,17 +77,18 @@ d3.json(gamesUrl).then((gameData) => {
     .attr("data-value", (game) => game.data.value)
     .attr("width", (game) => game.x1 - game.x0)
     .attr("height", (game) => game.y1 - game.y0)
-    .on('mouseover', (e, game) => {
-      let html = '<ul>';
+    .on("mouseover", (e, game) => {
+      let html = "<ul>";
       html += `<li>Name: ${game.data.name}</li>`;
       html += `<li>Platform: ${game.data.category}</li>`;
       html += `<li>Value: ${game.data.value}</li>`;
-      html += '</ul>';
+      html += "</ul>";
+      tip.attr('data-value', game.data.value);
 
       tip.html(html);
       tip.show(e);
     })
-    .on('mouseout', (e) => tip.hide(e))
+    .on("mouseout", (e) => tip.hide(e));
 
   block
     .append("text")
@@ -109,13 +110,14 @@ d3.json(gamesUrl).then((gameData) => {
       .append("rect")
       .attr("class", "legend-item")
       .attr("fill", value)
-      .attr('width', 20)
-      .attr('height', 20)
-      .attr('x', parseInt(i / 5) * 250)
-      .attr('y', 25 * ((i - 1) % 5 + 1));
-    legend.append("text")
-      .attr('x', parseInt(i / 5) * 250 + 30)
-      .attr('y', 25 * ((i - 1) % 5 + 1) + 16)
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("x", parseInt(i / 5) * 250)
+      .attr("y", 25 * (((i - 1) % 5) + 1));
+    legend
+      .append("text")
+      .attr("x", parseInt(i / 5) * 250 + 30)
+      .attr("y", 25 * (((i - 1) % 5) + 1) + 16)
       .text(key);
     i++;
   }
