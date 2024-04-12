@@ -5,7 +5,11 @@
     text-align: center;
 }
 
-.county:hover {
+.tile:hover {
     stroke: #000;
     stroke-width: 1;
+}
+
+li {
+    text-align: start;
 }

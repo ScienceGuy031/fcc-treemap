@@ -76,7 +76,18 @@ d3.json(gamesUrl).then((gameData) => {
     .attr("data-name", (game) => game.data.name)
     .attr("data-value", (game) => game.data.value)
     .attr("width", (game) => game.x1 - game.x0)
-    .attr("height", (game) => game.y1 - game.y0);
+    .attr("height", (game) => game.y1 - game.y0)
+    .on('mouseover', (e, game) => {
+      let html = '<ul>';
+      html += `<li>Name: ${game.data.name}</li>`;
+      html += `<li>Platform: ${game.data.category}</li>`;
+      html += `<li>Value: ${game.data.value}</li>`;
+      html += '</ul>';
+
+      tip.html(html);
+      tip.show(e);
+    })
+    .on('mouseout', (e) => tip.hide(e))
 
   block
     .append("text")
@@ -94,7 +105,6 @@ d3.json(gamesUrl).then((gameData) => {
 
   let i = 1;
   for (const [key, value] of Object.entries(colorMap)) {
-    console.log(key);
     legend
       .append("rect")
       .attr("class", "legend-item")
