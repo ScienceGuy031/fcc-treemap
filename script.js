@@ -83,7 +83,7 @@ d3.json(gamesUrl).then((gameData) => {
       html += `<li>Platform: ${game.data.category}</li>`;
       html += `<li>Value: ${game.data.value}</li>`;
       html += "</ul>";
-      tip.attr('data-value', game.data.value);
+      tip.attr("data-value", game.data.value);
 
       tip.html(html);
       tip.show(e);
@@ -100,11 +100,13 @@ d3.json(gamesUrl).then((gameData) => {
   graph.append("br");
   const legend = graph
     .append("svg")
-    .attr("width", 650)
-    .attr("height", 150)
+    .attr("width", width)
+    // height to fit 6 legend-items below each other
+    .attr("height", 25 + parseInt(Object.keys(colorMap).length / 6) * 50)
     .attr("id", "legend");
 
-  let i = 1;
+  let i = 0;
+  let col = 0;
   for (const [key, value] of Object.entries(colorMap)) {
     legend
       .append("rect")
@@ -112,12 +114,15 @@ d3.json(gamesUrl).then((gameData) => {
       .attr("fill", value)
       .attr("width", 20)
       .attr("height", 20)
-      .attr("x", parseInt(i / 5) * 250)
-      .attr("y", 25 * (((i - 1) % 5) + 1));
+      .attr("x", parseInt(i / 6) * 100 + 25)
+      .attr("y", (i + 1) * 25 - parseInt(i / 6) * (legend.attr("height") - 25));
     legend
       .append("text")
-      .attr("x", parseInt(i / 5) * 250 + 30)
-      .attr("y", 25 * (((i - 1) % 5) + 1) + 16)
+      .attr("x", parseInt(i / 6) * 100 + 30 + 25)
+      .attr(
+        "y",
+        (i + 1) * 25 - parseInt(i / 6) * (legend.attr("height") - 25) + 16
+      )
       .text(key);
     i++;
   }
