@@ -55,7 +55,7 @@ d3.json(gamesUrl).then((gameData) => {
 
   const createTreemap = d3.treemap().size([width, height]);
 
-  const treemap = createTreemap(hierarchy);
+  createTreemap(hierarchy);
   const tiles = hierarchy.leaves();
 
   const block = svg
@@ -92,9 +92,14 @@ d3.json(gamesUrl).then((gameData) => {
 
   block
     .append("text")
-    .text((game) => game.data.name)
-    .attr("x", 5)
-    .attr("y", 20);
+    .selectAll('tspan')
+    .data((game) => game.data.name.split(' '))
+    .enter()
+    .append('tspan')
+    .text((word) => word)
+    .attr("x", 4)
+    .attr("y", (d, i) => 13 + 13 * i)
+    .attr('font-size', '.7rem');
 
   // Legend
   graph.append("br");
@@ -106,7 +111,6 @@ d3.json(gamesUrl).then((gameData) => {
     .attr("id", "legend");
 
   let i = 0;
-  let col = 0;
   for (const [key, value] of Object.entries(colorMap)) {
     legend
       .append("rect")
